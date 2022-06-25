@@ -1,46 +1,60 @@
-{% extends 'base.html' %}
+<html>
 
-{% block title %}{{article.article_title}}{% endblock %}
+<head>
+    <style>
+        body {
+            background-color: rgb(98, 184, 148);
+        }
+    </style>
+</head>
 
-{% block content %}
+<body>
+    {% extends 'base.html' %}
 
-<h2>{{article.article_title}}</h2>
+    {% block title %}{{article.article_title}}{% endblock %}
 
-<p>{{article.article_text}}</p>
+    {% block content %}
 
-<em>{{article.pub_date}}</em>
+    <h2>{{article.article_title}}</h2>
 
-{% if article.was_publish_recently %}
-<p>  Новая статья!!!</p>
-{% endif %}
+    <p>{{article.article_text}}</p>
 
-<hr>
+    <em>{{article.pub_date}}</em>
 
-<form action="{% url 'articles:leave_comment' article.id %}" method="POST">
+    {% if article.was_publish_recently %}
+    <p> Новая статья!!!</p>
+    {% endif %}
 
-    {% csrf_token %}
+    <hr>
 
-    <input type="text" required placeholder="Ваше имя" name="name"><br>
-    <textarea name="text" required placeholder="Текст комментария" cols="30" rows="10">
+    <form action="{% url 'articles:leave_comment' article.id %}" method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" required placeholder="Ваше имя" name="name"><br>
+        <textarea name="text" required placeholder="Текст комментария" cols="30" rows="10">
 
     </textarea><br>
-    <button type="submit">Оставить комментарий</button>
-</form>
+        <button type="submit">Оставить комментарий</button>
+    </form>
 
-<hr>
+    <hr>
 
-{% if latest_comments_list %}
+    {% if latest_comments_list %}
     {% for c in latest_comments_list %}
-        <p>
-            <strong>{{c.author_name}}</strong>
-            <p>{{c.comment_text}}</p>
-        </p>
+    <p>
+        <strong>{{c.author_name}}</strong>
+    <p>{{c.comment_text}}</p>
+    </p>
     {% endfor %}
-{% else %}
-<p>Коментарии не найдены. Напишите коментарий!</p>
-{% endif %}
+    {% else %}
+    <p>Коментарии не найдены. Напишите коментарий!</p>
+    {% endif %}
 
-<hr>
+    <hr>
 
 
-{% endblock %}
+    {% endblock %}
+</body>
+
+</html>

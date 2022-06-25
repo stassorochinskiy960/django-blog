@@ -1,15 +1,31 @@
-{% extends 'base.html' %}
+<html>
 
-{% block title %}Последние статьи{% endblock %}
+<head>
+    <style>
+        body {
+            background-color: rgb(147, 207, 207);
+        }
+    </style>
+</head>
 
-{% block content %}
+<body>
+    {% extends 'base.html' %}
 
-    {% if latest_articles_list %}
-        {% for a in  latest_articles_list %}
-            <a href="{% url 'articles:detail' a.id %}">{{a.article_title}}</a> <br>
+    {% block title %}Последние статьи{% endblock %}
+
+    {% block content %}
+    <div>
+        <h1>Статі для прочитання:</h1>
+        {% if latest_articles_list %}
+        {% for a in latest_articles_list %}
+        <a href="{% url 'articles:detail' a.id %}">{{a.article_title}}</a> <br>
         {% endfor %}
-    {% else %}
+        {% else %}
         <p>not exists</p>
-    {% endif %}
+        {% endif %}
+    </div>
+    {% endblock %}
 
-{% endblock %}
+</body>
+
+</html>
